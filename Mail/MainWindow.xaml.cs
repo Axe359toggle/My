@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Net.Mail;
-using System.Net;
-using System.Net.Mime;
+using System.Net.Mail;    
+using System.Net;          
+using System.Net.Mime;      
 
 namespace Mail
 {
@@ -38,19 +38,20 @@ namespace Mail
             try
             {
 
-                SmtpClient client = new SmtpClient("smtp.gmail.com");
-                client.Port = 587;
+                SmtpClient client = new SmtpClient("smtp.gmail.com");  // your email's smtp server name
+                client.Port = 587;   // or port 25
                 client.EnableSsl = true;
-              //  client.Timeout = 10000;
+                // client.Timeout = 10000;  // low connection please comment this
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential("dmetrosk2@gmail.com","metro17008");
+                client.Credentials = new System.Net.NetworkCredential("**","**"); // email and pw
                 
-                MailMessage msg = new MailMessage("DmetroSK", txt_to.Text, txt_sub.Text, txt_msg.Text);
-               
-               
+                MailMessage msg = new MailMessage("**", txt_to.Text, txt_sub.Text, txt_msg.Text); // from , to , subject, message body
+                MailAddress copy = new MailAddress(txt_cc.Text);
+                
+                msg.CC.Add(copy);
                 client.Send(msg);
-                MessageBox.Show("Message Sent Successfully");
+                MessageBox.Show("Message Sent Successfully");  
 
             }
 
